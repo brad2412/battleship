@@ -34,11 +34,18 @@ class Cell
     
   end
 
-  def render
-    if @fired_upon == false
+  def render(display_s = false)
+    if display_s 
+      "S"
+    elsif @empty == false && @fired_upon == true && ship.health == 0
+      "X"
+    elsif @empty == false && @fired_upon == true
+      "H"
+    elsif @fired_upon == false
       "."
     elsif @fired_upon == true
       "M"
     end
   end
+
 end
