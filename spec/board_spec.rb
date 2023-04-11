@@ -49,13 +49,17 @@ RSpec.describe Board do
         expect(@board.valid_placement?(@submarine, ["A1", "A2"])).to eq(true)
         expect(@board.valid_placement?(@cruiser, ["B1", "C1", "D1"])).to eq(true)
       end
+
+      it 'has a valid placement method that prevents overlapping' do
+        @board.place(@cruiser, ["A1", "A2", "A3"])
+
+        expect(@board.valid_placement?(@submarine, ["A1", "B1"])).to eq (false)
+      end
     end
-  end
 
     describe '#place' do
       it 'has a place method for placing ships' do
         @board.place(@cruiser, ["A1", "A2", "A3"])
-
         expect(cell_1 = @board.cells["A1"]).to be_a(Cell)
         expect(cell_2 = @board.cells["A2"]).to be_a(Cell)
         expect(cell_3 = @board.cells["A3"]).to be_a(Cell)
@@ -67,4 +71,13 @@ RSpec.describe Board do
         expect(cell_3.ship == cell_2.ship).to eq(true)
       end
     end
+
+    describe '#overlap?' do
+      it 'has a method for detecting overlapped ships' do 
+        expect(@board.overlap?(@cruiser, ["A1", "A2", "A3"])).to eq(false)
+        @board.place(@cruiser, ["A1", "A2", "A3"])
+        expect(@board.overlap?(@submarine, ["A2", "B2"])).to eq(true)
+      end
+    end
+  end
 end
