@@ -35,11 +35,13 @@ class Board
 
   def valid_placement?(ship, ship_location)
     if ship.name == "Cruiser"
-      cruiser_validation(ship, ship_location)
+      cruiser_validation(ship, ship_location) && !overlap?(ship, ship_location)
     elsif ship.name == "Submarine"
-      submarine_validation(ship, ship_location)
+      submarine_validation(ship, ship_location)  && !overlap?(ship, ship_location)
     end
   end
+#  overlapping aspect of valid placement will iterate through the cells hash to check
+# for @ship != nil
 
   def place(ship, ship_location)
     if ship.name == "Cruiser"
@@ -70,6 +72,7 @@ class Board
   end
 
   def submarine_validation(ship, ship_location)
+
     if ship.length != ship_location.length
       false
     elsif  !@@valid_submarine_placements.include?(ship_location)
@@ -78,4 +81,12 @@ class Board
       true
     end
   end
+
+  def overlap?(ship, ship_location)
+    ship_location.any? do |ship_location|
+      @cells[ship_location].ship
+    end
+  end
 end
+
+# cell_ship = cells.values.map{ |cell| cell.instance_variable_get(:@ship) }.include?(nil)
