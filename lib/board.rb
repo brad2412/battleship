@@ -41,6 +41,22 @@ class Board
     end
   end
 
+  def place(ship, ship_location)
+    if ship.name == "Cruiser"
+      cell_1 = self.cells[ship_location[0]]
+      cell_1.ship = ship
+      cell_2 = self.cells[ship_location[1]]
+      cell_2.ship = ship
+      cell_3 = self.cells[ship_location[2]]
+      cell_3.ship = ship
+    elsif ship.name == "Submarine"
+      cell_1 = self.cells[ship_location[0]]
+      cell_1.ship = ship
+      cell_2 = self.cells[ship_location[1]]
+      cell_2.ship = ship
+    end
+  end
+
 # helper methods
 
   def cruiser_validation(ship, ship_location)
@@ -63,5 +79,3 @@ class Board
     end
   end
 end
-
-#     
