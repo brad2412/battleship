@@ -40,22 +40,36 @@ class Board
       submarine_validation(ship, ship_location)  && !overlap?(ship, ship_location)
     end
   end
-#  overlapping aspect of valid placement will iterate through the cells hash to check
-# for @ship != nil
 
   def place(ship, ship_location)
     if ship.name == "Cruiser"
       cell_1 = self.cells[ship_location[0]]
-      cell_1.ship = ship
+      cell_1.ship = ship 
       cell_2 = self.cells[ship_location[1]]
-      cell_2.ship = ship
+      cell_2.ship = ship 
       cell_3 = self.cells[ship_location[2]]
-      cell_3.ship = ship
+      cell_3.ship = ship 
     elsif ship.name == "Submarine"
       cell_1 = self.cells[ship_location[0]]
       cell_1.ship = ship
       cell_2 = self.cells[ship_location[1]]
       cell_2.ship = ship
+    end
+  end
+
+  def render(display_s = false)
+    if !display_s
+      p "  1 2 3 4 \n" +
+        "A #{@cells["A1"].render} #{@cells["A2"].render} #{@cells["A3"].render} #{@cells["A4"].render} \n" +
+        "B #{@cells["B1"].render} #{@cells["B2"].render} #{@cells["B3"].render} #{@cells["B4"].render} \n" +
+        "C #{@cells["C1"].render} #{@cells["C2"].render} #{@cells["C3"].render} #{@cells["C4"].render} \n" +
+        "D #{@cells["D1"].render} #{@cells["D2"].render} #{@cells["D3"].render} #{@cells["D4"].render} \n"
+    elsif display_s
+      p "  1 2 3 4 \n" +
+        "A #{@cells["A1"].render(true)} #{@cells["A2"].render(true)} #{@cells["A3"].render(true)} #{@cells["A4"].render(true)} \n" +
+        "B #{@cells["B1"].render(true)} #{@cells["B2"].render(true)} #{@cells["B3"].render(true)} #{@cells["B4"].render(true)} \n" +
+        "C #{@cells["C1"].render(true)} #{@cells["C2"].render(true)} #{@cells["C3"].render(true)} #{@cells["C4"].render(true)} \n" +
+        "D #{@cells["D1"].render(true)} #{@cells["D2"].render(true)} #{@cells["D3"].render(true)} #{@cells["D4"].render(true)} \n"
     end
   end
 
@@ -88,5 +102,3 @@ class Board
     end
   end
 end
-
-# cell_ship = cells.values.map{ |cell| cell.instance_variable_get(:@ship) }.include?(nil)

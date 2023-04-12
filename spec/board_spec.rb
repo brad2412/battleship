@@ -79,5 +79,23 @@ RSpec.describe Board do
         expect(@board.overlap?(@submarine, ["A2", "B2"])).to eq(true)
       end
     end
+
+    describe '#render' do 
+      it 'has a render method for printing the board' do
+        @board.place(@cruiser, ["A1", "A2", "A3"])
+        expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+      end
+
+      it 'can render more than one ship at a time' do
+        @board.place(@cruiser, ["A1", "A2", "A3"])
+        expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n")
+
+        @board.place(@submarine, ["A4", "B4"])
+        expect(@board.render).to eq("  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n")
+        expect(@board.render(true)).to eq("  1 2 3 4 \nA S S S S \nB . . . S \nC . . . . \nD . . . . \n")
+      end
+    end
   end
 end
