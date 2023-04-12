@@ -32,7 +32,7 @@ RSpec.describe Cell do
   end
 
   describe '#fired_upon' do
-    it 'has a fired_upon? method' do
+    it 'has a fired_upon? and fire_upon method' do
       cell = Cell.new("B4")
       cruiser = Ship.new("Cruiser", 3)
       cell.place_ship(cruiser)
